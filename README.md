@@ -6,6 +6,8 @@
 - настройки  
 - дополнительные знания (knowledge)
 
+---
+
 Все диалоги логируются в админскую группу Telegram.  
 
 Для каждого пользователя создаётся отдельный тред, где администратор может просматривать историю сообщений и влезать в диалоги с пользователями.
@@ -16,19 +18,21 @@
 
 ### 1. Клонировать репозиторий
 
-```bash
-git clone https://github.com/d1pty/tg_aibot_settings_and_knowledge.git
-cd tg_aibot_settings_and_knowledge
-```
+git clone https://github.com/d1pty/tg_aibot_settings_and_knowledge.git  
+cd tg_aibot_settings_and_knowledge  
+
+---
 
 ### 2. Указать настройки в config.py
 
-## Необходимо добавить
+Необходимо добавить:
 
 - токен Telegram бота  
 - ID админской группы  
 - API ключ для ИИ  
 
-Запустить бота
+---
+
+### 3. Запуск бота
 
 python main.py
