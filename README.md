@@ -21,7 +21,7 @@ git clone https://github.com/d1pty/tg_aibot_settings_and_knowledge.git
 cd tg_aibot_settings_and_knowledge
 ```
 
-\### 2. Указать настройки в config.py
+### 1. Указать настройки в config.py
 
 ## Необходимо добавить
 
