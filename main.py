@@ -1,4 +1,5 @@
 import logging
+import asyncio
 from telegram.ext import Application, CommandHandler, MessageHandler, filters
 
 from config import TELEGRAM_BOT_TOKEN, BTN_SETTINGS, BTN_KNOWLEDGE, BTN_CHANGE, BTN_BACK, ADMIN_GROUP_ID
@@ -18,9 +19,10 @@ def main():
         format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO
     )
 
-    application = Application.builder().token(TELEGRAM_BOT_TOKEN).build()
+    # Инициализация базы
+    asyncio.run(init_db())
 
-    application.job_queue.run_once(lambda ctx: init_db(), 0)
+    application = Application.builder().token(TELEGRAM_BOT_TOKEN).build()
 
     application.add_handler(CommandHandler('start', start))
 
@@ -33,6 +35,7 @@ def main():
         filters.TEXT & filters.Regex(f"^({BTN_CHANGE}|{BTN_BACK})$"),
         handle_update_menu
     ))
+
     application.add_handler(MessageHandler(
         filters.Chat(ADMIN_GROUP_ID) & filters.Regex(r"^/(disable|enable)"),
         admin_toggle_bot
@@ -43,7 +46,10 @@ def main():
         admin_reply
     ))
 
-    application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_update_input))
+    application.add_handler(MessageHandler(
+        filters.TEXT & ~filters.COMMAND,
+        handle_update_input
+    ))
 
     application.run_polling()
 
